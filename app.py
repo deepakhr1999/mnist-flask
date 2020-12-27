@@ -1,24 +1,15 @@
-import os
-os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
-
-from flask import Flask, render_template, request, jsonify
-import json
-from PIL import Image
-
-from skimage.transform import resize as imresize
-import numpy as np
-
 import re
 import base64
+import numpy as np
 from io import BytesIO
+from PIL import Image
+from flask import Flask, render_template, request, jsonify
+from skimage.transform import resize
 
-import sys 
-# sys.path.append(os.path.abspath("./model"))
-from model.load import *
+import ConvNeuralNet
 
 app = Flask(__name__)
-global model
-model = init()
+model = ConvNeuralNet.loadModel('weights.h5')
     
 @app.route('/')
 def index():
@@ -47,7 +38,7 @@ def parseImage(imgData):
     decoded = base64.b64decode(b64String)
     img = Image.open(BytesIO(decoded)).convert('L')
     x = np.invert(img)
-    x = imresize(x,(28,28))
+    x = resize(x,(28,28))
     return x
 
 def predsToResponse(preds):
