@@ -3,17 +3,17 @@ os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
 
 from flask import Flask, render_template, request
 from PIL import Image
-from imageio import imread, imwrite as imsave
+
 from skimage.transform import resize as imresize
 import numpy as np
-import keras.models
+
 import re
 import base64
 from io import BytesIO
 
 import sys 
-sys.path.append(os.path.abspath("./model"))
-from load import *
+# sys.path.append(os.path.abspath("./model"))
+from model.load import *
 
 app = Flask(__name__)
 global model

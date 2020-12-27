@@ -9,7 +9,8 @@
 	context.fillStyle = "white";
 	context.fillRect(0, 0, canvas.width, canvas.height);
 	context.color = "black";
-	context.lineWidth = 7;
+	context.lineWidth = 12;
+	console.log('Linewidth is', context.lineWidth)
     context.lineJoin = context.lineCap = 'round';
 	
 	debug();
@@ -54,7 +55,7 @@
 
 // this prevents the site from idling
 // since it takes the flask app about 20 seconds to start up again
-var http = require("http");
-setInterval(function() {
-    http.get("http://mnist-flask-app.herokuapp.com");
-}, 300000); // every 5 minutes (300000)
+// var http = require("http");
+// setInterval(function() {
+//     http.get("http://mnist-flask-app.herokuapp.com");
+// }, 300000); // every 5 minutes (300000)
