@@ -9,6 +9,7 @@ import numpy as np
 import keras.models
 import re
 import base64
+from io import BytesIO
 
 import sys 
 sys.path.append(os.path.abspath("./model"))
@@ -25,29 +26,27 @@ def index():
 @app.route('/predict/', methods=['GET','POST'])
 def predict():
     # get data from drawing canvas and save as image
-    parseImage(request.get_data())
-
-    # read parsed image back in 8-bit, black and white mode (L)
-    x = Image.open('output.png').convert('L')
-    x = np.invert(x)
-    x = imresize(x,(28,28))
+    x = parseImage(request.get_data())
 
     # reshape image data for use in neural network
     x = x.reshape(1,28,28,1)
     
     out = model.predict(x)
-    print(out)
-    print(np.argmax(out, axis=1))
+    
     response = np.array_str(np.argmax(out, axis=1))
     return response 
     
 def parseImage(imgData):
-    # parse canvas bytes and save as output.png
-    imgstr = re.search(b'base64,(.*)', imgData).group(1)
-    with open('output.png','wb') as output:
-        output.write(base64.decodebytes(imgstr))
+    """
+        Reads the base64 image using PIL
+        Resizes for Neural Net input
+    """
+    b64String = re.search(b'base64,(.*)', imgData).group(1)
+    decoded = base64.b64decode(b64String)
+    img = Image.open(BytesIO(decoded)).convert('L')
+    x = np.invert(img)
+    x = imresize(x,(28,28))
+    return x
 
 if __name__ == '__main__':
-    app.debug = True
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host='0.0.0.0', port=port)
+    app.run(host='0.0.0.0', port=5000)
