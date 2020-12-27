@@ -7,7 +7,7 @@ from tensorflow.keras.layers import Conv2D, MaxPooling2D
 import tensorflow as tf
 os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
 
-def loadModel(filename):
+def loadModel(filename='SavedModels/weights.h5'):
     num_classes = 10
     img_rows, img_cols = 28, 28
     input_shape = (img_rows, img_cols, 1)

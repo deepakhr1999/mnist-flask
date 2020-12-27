@@ -5,24 +5,40 @@ from io import BytesIO
 from PIL import Image
 from flask import Flask, render_template, request, jsonify
 from skimage.transform import resize
+import argparse
 
-import ConvNeuralNet
+parser = argparse.ArgumentParser()
+parser.add_argument('--model', required=True, help='CNN or LR')
+args = parser.parse_args()
+
+
+if args.model == 'CNN':
+    """For CNN"""
+    from ConvNeuralNet import loadModel, reshapeBeforeInput, modelName
+    model = loadModel()
+
+elif args.model == 'LR':
+    """For LogisticRegression"""
+    from LogisticRegression import loadModel, reshapeBeforeInput, modelName
+    model = loadModel()
+    model.predict = model.predict_proba    
+else:
+    print("Expecting --model as CNN or LR")
+    exit(0)
 
 app = Flask(__name__)
-model = ConvNeuralNet.loadModel('weights.h5')
-    
 @app.route('/')
 def index():
-    return render_template("index.html")
+    return render_template("index.html", modelName=modelName)
 
 @app.route('/predict/', methods=['GET','POST'])
 def predict():
     # get data from drawing canvas and save as image
     x = parseImage(request.get_data())
 
-    # reshape image data for use in neural network
-    x = x.reshape(1,28,28,1)
-    
+    # reshape image appropriately for model
+    x = reshapeBeforeInput(x)
+    Image.fromarray((255*x).reshape((28, 28)).astype('uint8')).save('output.png')
     preds = model.predict(x)
     
     response = predsToResponse(preds)
