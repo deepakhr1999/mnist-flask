@@ -2,12 +2,12 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Handwritten Digit Recognition using Convolutional Neural Networks</title>
+	<title>MNIST</title>
 	<link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
 </head>
 
 <body>
-		<h1>Digit Recognition using Convolutional Neural Networks</h1>
+		<h1 class="styledH1">Digit Recognition using Machine Learning Models</h1>
 
 
 		<div class="centered">
@@ -21,13 +21,36 @@
 		</div>
 
 		<div class="centered">
-			<h1 id="result"></h1>
+			<h1 class="styledH1" id="result"></h1>
 		</div>
 
-
+		<div class="centered" style="margin-top: 5em;">
+			<table style="margin: auto;">
+				<thead>
+					<tr>
+						<th>Number</th>
+						<th>Prob</th>
+					</tr>
+				</thead>
+				<tbody id='tbody'>
+				</tbody>
+			</table>
+		</div>
   		<script src="{{url_for('static',filename='jquery-3.2.0.min.js')}}"></script>
 	    <script src="{{url_for('static',filename='index.js')}}"></script>
-	    <script type="text/javascript">
+		<script type="text/javascript">
+			const makeTable = (data) => {
+				x = ""
+				for(var i=0; i<3; i=i+1){
+					x = x + `<tr>
+								<td>${data.top3[i]}</td>
+								<td>${data.probs[i]}</td>
+							</tr>`
+				}
+				document.getElementById('tbody').innerHTML = x
+				document.getElementById('result').innerHTML = "Predicted : " + data.pred
+			}
+
 	   		$(".myButton").click(function(){
 	   			$('#result').text('  Predicting...');
 	   			var $SCRIPT_ROOT = {{request.script_root|tojson|safe}};
@@ -37,11 +60,15 @@
 	   				type: "POST",
 	   				url: $SCRIPT_ROOT + "/predict/",
 	   				data: img,
-	   				success: function(data){
-	   					$('#result').text('Predicted Output: ' + data);
-	   				}
+	   				success: makeTable
 	   			});
-	   		});
+			   });
+			
+			makeTable({
+				top3: [4, 2, 0],
+				probs: ["0.00", "0.00", "0.00"],
+				pred: "None"
+			})
 	   </script>
 </body>
 </html>

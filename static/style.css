@@ -4,7 +4,7 @@ html {
 	height: 100%;
 	background: #EEE;}
 
-h1 {
+h1.styledH1 {
 	position: absolute;
 	text-align: center;
 	left:0;
@@ -15,6 +15,8 @@ h1 {
 	font-weight: 300;
 	z-index: -1;
 }
+
+
 
 #canvas {
 	position: relative;
@@ -29,4 +31,19 @@ h1 {
 .centered {
 	position: relative;
 	text-align: center;
+}
+
+/* Bordered Table */
+table, th, td {
+	border: 1px solid #807F7D;
+	border-collapse: collapse;
+}
+table *{
+	font-family: 'Open Sans', Helvetica;
+	color: #807F7D;
+	font-size: 25px;
+	font-weight: 300;
+}
+td {
+	width: 5em;
 }

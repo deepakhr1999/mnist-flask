@@ -1,7 +1,8 @@
 import os
 os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
+import json
 from PIL import Image
 
 from skimage.transform import resize as imresize
@@ -31,9 +32,10 @@ def predict():
     # reshape image data for use in neural network
     x = x.reshape(1,28,28,1)
     
-    out = model.predict(x)
+    preds = model.predict(x)
     
-    response = np.array_str(np.argmax(out, axis=1))
+    response = predsToResponse(preds)
+    
     return response 
     
 def parseImage(imgData):
@@ -48,5 +50,23 @@ def parseImage(imgData):
     x = imresize(x,(28,28))
     return x
 
+def predsToResponse(preds):
+    """
+        converts model predictions to json response
+        expects preds = np.array of shape (1, 10)
+    """
+    preds = preds[0].round(3)
+    top3  = (-preds).argsort()[:3].astype('int')
+    top3 = [int(x) for x in top3]
+    probs = [f"{preds[i]:.2f}" for i in top3]
+    data = dict(
+        top3  = top3,
+        probs = probs,
+        pred  = top3[0]
+    )
+    print(data)
+    return jsonify(data)
+
+
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=5000,debug=True)
