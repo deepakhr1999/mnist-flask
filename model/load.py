@@ -1,6 +1,7 @@
 import numpy as np
 import keras.models
-from scipy.misc import imread, imresize,imshow
+from imageio import imread, imwrite as imsave
+from skimage.transform import resize as imresize
 import tensorflow as tf
 
 from keras.models import Sequential
@@ -28,9 +29,6 @@ def init():
 
     #compile and evaluate loaded model
     model.compile(loss=keras.losses.categorical_crossentropy, optimizer=keras.optimizers.Adadelta(), metrics=['accuracy'])
-    #loss,accuracy = model.evaluate(X_test,y_test)
-    #print('loss:', loss)
-    #print('accuracy:', accuracy)
-    graph = tf.get_default_graph()
+    
 
-    return model, graph
+    return model
