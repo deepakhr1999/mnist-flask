@@ -64,7 +64,7 @@ def predsToResponse(preds):
         probs = probs,
         pred  = top3[0]
     )
-    print(data)
+
     return jsonify(data)
 
 
