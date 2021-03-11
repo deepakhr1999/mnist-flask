@@ -1,5 +1,4 @@
 # MNIST Flask App
-Forked from https://github.com/akashdeepjassal/mnist-flask  
 ![](https://github.com/deepakhr1999/mnist-flask/blob/master/media/screenshot.png)  
 
 A Flask web app for handwritten digits using a logistic regression model  
