@@ -6,7 +6,7 @@ Used as an assignment follow up with Chapter-1: Basics, ML Workshop, AI-Club, II
 
 ### Step 1: Download code
 You can download this code using this link https://github.com/deepakhr1999/mnist-flask/archive/master.zip  
-Uncompress the zip file. The code must be in a folder called `master`  
+Uncompress the zip file. The code must be in a folder called `mnist-flask-master`  
 
 ### Step 2: Google drive link for mnist data
 Download these files into the master folder you just downloaded  
@@ -21,13 +21,13 @@ pip install scikit-image flask pandas scikit-learn
 
 ### Step 4: Complete the missing code
 - Complete missing code in the file named LogisticRegression/train.py
-- In the `master` folder, Shift + right-click and open powershell. Run the following command
+- In the `mnist-flask-master` folder, Shift + right-click and open powershell. Run the following command
 ```sh
 python LogisticRegression/train.py --savefile SavedModels/logreg.pkl
 ```
 
 ### Step 5: Start the flask app
-- In the `master` folder, Shift + right-click and open powershell. Run the following command
+- In the `mnist-flask-master` folder, Shift + right-click and open powershell. Run the following command
 ```sh
 python app.py --model LR
 ```
