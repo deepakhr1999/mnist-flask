@@ -1,2 +1,5 @@
 output.png
 **/__pycache__
+digit-recognizer/*
+train.csv
+test.csv
