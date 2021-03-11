@@ -19,14 +19,14 @@ Run this command in the windows powershell
 pip install scikit-image flask pandas scikit-learn
 ```
 
-### Step 3: Complete the missing code
+### Step 4: Complete the missing code
 - Complete missing code in the file named LogisticRegression/train.py
 - In the `master` folder, Shift + right-click and open powershell. Run the following command
 ```sh
 python LogisticRegression/train.py --savefile SavedModels/logreg.pkl
 ```
 
-### Step 4: Start the flask app
+### Step 5: Start the flask app
 - In the `master` folder, Shift + right-click and open powershell. Run the following command
 ```sh
 python app.py --model LR
