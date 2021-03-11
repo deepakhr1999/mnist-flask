@@ -2,7 +2,7 @@
 ![](https://github.com/deepakhr1999/mnist-flask/blob/master/media/screenshot.png)  
 
 A Flask web app for handwritten digits using a logistic regression model  
-Used as an assignment follow up with Chapter-1: Basics, ML Workshop, AI-Club, IIT Dharwad
+Used as a follow up assignment with [Chapter-1: Basics, ML Workshop, AI-Club, IIT Dharwad](https://github.com/deepakhr1999/MachineLearningWorkshop)
 
 ### Step 1: Download code
 You can download this code using this link https://github.com/deepakhr1999/mnist-flask/archive/master.zip  
